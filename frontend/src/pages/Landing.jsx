@@ -29,7 +29,7 @@ export default function Landing() {
           </div>
           <span className="text-2xl font-black tracking-tighter uppercase italic">REDORA</span>
         </div>
-        
+
         <div className="flex items-center gap-8">
           {user ? (
             <Link to="/dashboard" className="px-10 py-4 rounded-2xl bg-white text-black text-sm font-extrabold hover:bg-slate-200 transition-all shadow-xl">
@@ -50,12 +50,13 @@ export default function Landing() {
       <section className="relative z-10 w-full max-w-7xl px-8 md:px-16 pt-24 pb-32 flex flex-col items-center text-center">
         <div className="space-y-10 max-w-4xl">
           <h1 className="text-6xl md:text-[110px] font-black leading-[0.85] tracking-tighter">
-            THE FUTURE <br />
+            REDORA <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 italic">OF STUDYING.</span>
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
-            Redora transforms dense academic PDFs into high-fidelity summaries and adaptive quizzes. Learn faster with AI intelligence.
+            AI Smart Learning Assistant with
+            Summarization and Quiz Generation.Learn faster with AI intelligence.
           </p>
 
           <div className="flex justify-center pt-6">
