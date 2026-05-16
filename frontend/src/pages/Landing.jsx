@@ -112,13 +112,13 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full max-w-7xl px-8 md:px-16 mt-64 py-20 border-t border-white/5">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 opacity-30">
+      <footer className="relative z-10 w-full max-w-7xl px-8 md:px-16 mt-80 py-24 border-t border-white/5">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 opacity-30">
           <div className="flex items-center gap-4">
             <HiOutlineAcademicCap className="w-8 h-8" />
             <span className="text-2xl font-black uppercase italic tracking-tighter">REDORA</span>
           </div>
-          <p className="text-sm font-bold uppercase tracking-[0.2em]">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] mt-4 md:mt-0">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>
