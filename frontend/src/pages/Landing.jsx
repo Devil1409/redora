@@ -32,13 +32,13 @@ export default function Landing() {
 
         <div className="flex items-center gap-8">
           {user ? (
-            <Link to="/dashboard" className="px-10 py-4 rounded-2xl bg-white text-black text-sm font-extrabold hover:bg-slate-200 transition-all shadow-xl">
+            <Link to="/dashboard" className="px-10 py-4 rounded-2xl bg-transparent border border-white/20 text-white text-sm font-extrabold hover:bg-white hover:text-black hover:border-white transition-all">
               Dashboard
             </Link>
           ) : (
             <>
               <Link to="/login" className="text-sm font-bold text-slate-400 hover:text-white transition-colors">Sign In</Link>
-              <Link to="/register" className="px-10 py-4 rounded-2xl bg-white text-black text-sm font-extrabold hover:bg-slate-200 transition-all shadow-xl">
+              <Link to="/register" className="px-10 py-4 rounded-2xl bg-transparent border border-white/20 text-white text-sm font-extrabold hover:bg-white hover:text-black hover:border-white transition-all">
                 Get Started
               </Link>
             </>
@@ -47,20 +47,38 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 w-full max-w-7xl px-8 md:px-16 pt-24 pb-32 flex flex-col items-center text-center">
-        <div className="space-y-10 max-w-4xl">
-          <h1 className="text-6xl md:text-[110px] font-black leading-[0.85] tracking-tighter">
+      <section className="relative z-10 w-full max-w-7xl px-8 md:px-16 pt-32 pb-48 flex flex-col items-center text-center">
+        {/* Title with Background and Reflection */}
+        <div className="relative mb-40">
+          {/* Title Background Image */}
+          <div className="absolute inset-0 -inset-x-20 -inset-y-10 pointer-events-none opacity-40">
+            <img 
+              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop" 
+              alt="Background" 
+              className="w-full h-full object-cover rounded-full blur-3xl"
+            />
+          </div>
+          
+          <h1 
+            className="relative text-6xl md:text-[140px] font-black leading-none tracking-tighter"
+            style={{ 
+              WebkitBoxReflect: 'below -20px linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15))' 
+            }}
+          >
             REDORA <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 italic">OF STUDYING.</span>
           </h1>
-
-          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
+        </div>
+        
+        {/* Description and Button - Moved down to clear reflection */}
+        <div className="space-y-12 max-w-4xl pt-10">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-5xl mx-auto leading-relaxed font-medium">
             AI Smart Learning Assistant with Summarization and Quiz Generation.<br />
             Learn faster with AI intelligence.
           </p>
 
-          <div className="flex justify-center pt-6">
-            <Link to="/register" className="group flex items-center gap-4 px-12 py-6 rounded-[24px] bg-white text-black text-xl font-black hover:scale-105 transition-all shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]">
+          <div className="flex justify-center pt-8">
+            <Link to="/register" className="group flex items-center gap-4 px-14 py-6 rounded-[24px] bg-transparent border border-white/20 text-white text-xl font-black hover:bg-white hover:text-black hover:border-white transition-all shadow-2xl">
               START NOW
               <HiChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -68,7 +86,7 @@ export default function Landing() {
         </div>
 
         {/* Big visual card (Hero Image/Preview) */}
-        <div className="mt-28 relative w-full max-w-5xl group">
+        <div className="mt-40 relative w-full max-w-5xl group">
           <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
           <div className="relative rounded-[32px] border border-white/10 bg-white/[0.02] backdrop-blur-3xl aspect-video overflow-hidden shadow-2xl flex items-center justify-center">
             <div className="text-slate-700 font-black text-5xl uppercase tracking-[0.3em] italic opacity-10 select-none">
@@ -94,7 +112,7 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 w-full max-w-7xl px-8 md:px-16 py-20 border-t border-white/5">
+      <footer className="relative z-10 w-full max-w-7xl px-8 md:px-16 mt-64 py-20 border-t border-white/5">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 opacity-30">
           <div className="flex items-center gap-4">
             <HiOutlineAcademicCap className="w-8 h-8" />
@@ -106,5 +124,3 @@ export default function Landing() {
     </div>
   )
 }
-
-
