@@ -9,7 +9,7 @@ export default function Navbar({ toggleSidebar }) {
       <div className="flex items-center gap-6">
         <button 
           onClick={toggleSidebar}
-          className="lg:hidden p-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition-all"
+          className="hidden lg:flex p-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition-all"
         >
           <HiOutlineMenuAlt2 className="w-6 h-6" />
         </button>

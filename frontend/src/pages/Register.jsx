@@ -33,59 +33,88 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#030408] flex items-center justify-center p-8 relative overflow-hidden">
+      {/* Cinematic Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/8 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-cyan-500/6 rounded-full blur-[80px]" />
+        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[160px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              <HiOutlineAcademicCap className="w-7 h-7 text-white" />
+      <div className="relative z-10 w-full max-w-[600px] animate-fade-in-up">
+        {/* Brand Header */}
+        <div className="text-center mb-16">
+          <Link to="/" className="inline-flex flex-col items-center gap-6 group">
+            <div className="w-16 h-16 rounded-[24px] bg-white flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
+              <HiOutlineAcademicCap className="w-8 h-8 text-black" />
             </div>
-            <span className="text-2xl font-bold gradient-text">REDORA</span>
+            <span className="text-3xl font-black tracking-tighter text-white italic uppercase">REDORA</span>
           </Link>
-          <h2 className="text-2xl font-bold text-white mt-4">Create Account</h2>
-          <p className="text-gray-400 text-sm mt-1">Start your AI-powered learning journey</p>
+          <h2 className="text-5xl font-black text-white mt-12 tracking-tight">CREATE PROFILE.</h2>
+          <p className="text-slate-500 mt-6 text-xl font-medium tracking-wide">Join the future of high-speed learning.</p>
         </div>
 
-        <div className="glass-card p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Username</label>
+        {/* Airy Form Container */}
+        <div className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[40px] p-16 md:p-20 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-12">
+            <div className="space-y-4">
+              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Full Name</label>
               <div className="relative">
-                <HiOutlineUser className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="johndoe" className="input-field pl-11" />
+                <HiOutlineUser className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 text-slate-600" />
+                <input 
+                  type="text" 
+                  value={username} 
+                  onChange={e => setUsername(e.target.value)} 
+                  placeholder="John Doe" 
+                  className="w-full bg-transparent border-b border-white/10 py-5 pl-12 outline-none focus:border-white transition-all text-white text-xl placeholder:text-slate-800" 
+                />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+            <div className="space-y-4">
+              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Academic Email</label>
               <div className="relative">
-                <HiOutlineMail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" className="input-field pl-11" />
+                <HiOutlineMail className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 text-slate-600" />
+                <input 
+                  type="email" 
+                  value={email} 
+                  onChange={e => setEmail(e.target.value)} 
+                  placeholder="name@university.edu" 
+                  className="w-full bg-transparent border-b border-white/10 py-5 pl-12 outline-none focus:border-white transition-all text-white text-xl placeholder:text-slate-800" 
+                />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+            <div className="space-y-4">
+              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Security Protocol</label>
               <div className="relative">
-                <HiOutlineLockClosed className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min. 6 characters" className="input-field pl-11" />
+                <HiOutlineLockClosed className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 text-slate-600" />
+                <input 
+                  type="password" 
+                  value={password} 
+                  onChange={e => setPassword(e.target.value)} 
+                  placeholder="Min. 6 characters" 
+                  className="w-full bg-transparent border-b border-white/10 py-5 pl-12 outline-none focus:border-white transition-all text-white text-xl placeholder:text-slate-800" 
+                />
               </div>
             </div>
 
-            <button type="submit" disabled={loading} className="btn-primary w-full justify-center py-3 text-base">
-              {loading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : 'Create Account'}
+            <button type="submit" disabled={loading} className="w-full h-20 rounded-[24px] bg-white text-black text-xl font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_50px_-10px_rgba(255,255,255,0.2)]">
+              {loading ? (
+                <div className="w-8 h-8 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto" />
+              ) : (
+                'ESTABLISH PROFILE'
+              )}
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-400 mt-6">
-            Already have an account?{' '}
-            <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">Sign in</Link>
-          </p>
+          <div className="mt-16 text-center pt-10 border-t border-white/5">
+            <p className="text-slate-500 text-lg font-medium">
+              Existing researcher?{' '}
+              <Link to="/login" className="text-white hover:text-indigo-400 transition-colors underline underline-offset-[12px] decoration-white/20 hover:decoration-indigo-400/50">
+                Sign In
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -32,15 +32,15 @@ export default function Landing() {
           <span className="text-2xl font-black tracking-tighter uppercase italic">REDORA</span>
         </div>
         
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           {user ? (
-            <Link to="/dashboard" className="px-8 py-3 rounded-2xl bg-white text-black font-bold hover:bg-slate-200 transition-all">
+            <Link to="/dashboard" className="px-10 py-4 rounded-2xl bg-white text-black font-bold hover:bg-slate-200 transition-all">
               Launch Dashboard
             </Link>
           ) : (
             <>
               <Link to="/login" className="text-sm font-bold text-slate-400 hover:text-white transition-colors">Sign In</Link>
-              <Link to="/register" className="px-8 py-3 rounded-2xl bg-white text-black font-bold hover:bg-slate-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.15)]">
+              <Link to="/register" className="px-12 py-4 rounded-2xl bg-white text-black font-bold hover:bg-slate-200 transition-all shadow-[0_0_40px_rgba(255,255,255,0.15)]">
                 Get Started
               </Link>
             </>
