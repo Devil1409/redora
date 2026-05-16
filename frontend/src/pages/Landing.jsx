@@ -52,24 +52,24 @@ export default function Landing() {
         <div className="relative mb-40">
           {/* Title Background Image */}
           <div className="absolute inset-0 -inset-x-20 -inset-y-10 pointer-events-none opacity-40">
-            <img 
-              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop" 
-              alt="Background" 
+            <img
+              src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop"
+              alt="Background"
               className="w-full h-full object-cover rounded-full blur-3xl"
             />
           </div>
-          
-          <h1 
+
+          <h1
             className="relative text-6xl md:text-[140px] font-black leading-none tracking-tighter"
-            style={{ 
-              WebkitBoxReflect: 'below -20px linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15))' 
+            style={{
+              WebkitBoxReflect: 'below -20px linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.15))'
             }}
           >
             REDORA <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 italic">OF STUDYING.</span>
           </h1>
         </div>
-        
+
         {/* Description and Button - Moved down to clear reflection */}
         <div className="space-y-12 max-w-4xl pt-10">
           <p className="text-xl md:text-2xl text-slate-400 max-w-5xl mx-auto leading-relaxed font-medium">
@@ -118,7 +118,7 @@ export default function Landing() {
             <HiOutlineAcademicCap className="w-8 h-8" />
             <span className="text-2xl font-black uppercase italic tracking-tighter">REDORA</span>
           </div>
-          <p className="text-sm font-bold uppercase tracking-[0.2em] mt-4 md:mt-0">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] mt-4 md:mt-0 px-6 py-8">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>

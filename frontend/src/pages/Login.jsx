@@ -62,12 +62,12 @@ export default function Login() {
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
               <div className="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl px-6 group focus-within:border-indigo-500/50 focus-within:bg-white/[0.05] transition-all">
                 <HiOutlineMail className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors shrink-0" />
-                <input 
-                  type="email" 
-                  value={email} 
-                  onChange={e => setEmail(e.target.value)} 
-                  placeholder="name@example.com" 
-                  className="w-full bg-transparent py-5 outline-none text-white text-sm placeholder:text-slate-700" 
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="name@example.com"
+                  className="w-full bg-transparent px-4 py-3 mt-4 outline-none text-white text-sm placeholder:text-slate-400 rounded-lg border border-slate-700"
                 />
               </div>
             </div>
@@ -76,19 +76,19 @@ export default function Login() {
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Password</label>
               <div className="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl px-6 group focus-within:border-indigo-500/50 focus-within:bg-white/[0.05] transition-all">
                 <HiOutlineLockClosed className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors shrink-0" />
-                <input 
-                  type="password" 
-                  value={password} 
-                  onChange={e => setPassword(e.target.value)} 
-                  placeholder="••••••••" 
-                  className="w-full bg-transparent py-5 outline-none text-white text-sm placeholder:text-slate-700" 
+                <input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full bg-transparent px-4 py-3 mt-4 outline-none text-white text-sm placeholder:text-slate-400 rounded-lg border border-slate-700"
                 />
               </div>
             </div>
 
-            <button 
-              type="submit" 
-              disabled={loading} 
+            <button
+              type="submit"
+              disabled={loading}
               className="w-full h-14 mt-4 rounded-2xl bg-white text-black text-sm font-bold hover:bg-slate-100 hover:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.2)] active:scale-[0.98] transition-all duration-300 disabled:opacity-70"
             >
               {loading ? (
