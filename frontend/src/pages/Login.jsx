@@ -11,7 +11,6 @@ export default function Login() {
   const { user, login } = useAuth()
   const navigate = useNavigate()
 
-  // Redirect if already logged in
   useEffect(() => {
     if (user) navigate('/dashboard')
   }, [user, navigate])
@@ -36,71 +35,75 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#030408] flex items-center justify-center p-8 relative overflow-hidden">
-      {/* Cinematic Background */}
+    <div className="min-h-screen bg-[#030408] flex items-center justify-center p-6 relative overflow-hidden">
+      {/* Background Glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[160px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[140px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[600px] animate-fade-in-up">
+      <div className="relative z-10 w-full max-w-[440px] animate-fade-in-up">
         {/* Brand Header */}
-        <div className="text-center mb-16">
-          <Link to="/" className="inline-flex flex-col items-center gap-6 group">
-            <div className="w-16 h-16 rounded-[24px] bg-white flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
-              <HiOutlineLightningBolt className="w-8 h-8 text-black" />
+        <div className="text-center mb-10">
+          <Link to="/" className="inline-flex flex-col items-center gap-4 group">
+            <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.15)] group-hover:scale-105 transition-transform duration-500">
+              <HiOutlineLightningBolt className="w-7 h-7 text-black" />
             </div>
-            <span className="text-3xl font-black tracking-tighter text-white italic uppercase">REDORA</span>
+            <span className="text-2xl font-black tracking-tighter text-white italic uppercase">REDORA</span>
           </Link>
-          <h2 className="text-5xl font-black text-white mt-12 tracking-tight">WELCOME BACK.</h2>
-          <p className="text-slate-500 mt-6 text-xl font-medium tracking-wide">Ready for your next breakthrough?</p>
+          <h2 className="text-3xl font-bold text-white mt-8 tracking-tight">Welcome Back</h2>
+          <p className="text-slate-500 mt-2 text-sm font-medium">Please enter your credentials to continue</p>
         </div>
 
-        {/* Airy Form Container */}
-        <div className="bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[40px] p-16 md:p-20 shadow-2xl">
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="space-y-4">
-              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Identification</label>
-              <div className="relative">
-                <HiOutlineMail className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 text-slate-600" />
+        {/* Form Container */}
+        <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/5 rounded-[32px] p-8 md:p-10 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
+              <div className="relative group">
+                <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
                 <input 
                   type="email" 
                   value={email} 
                   onChange={e => setEmail(e.target.value)} 
-                  placeholder="Your academic email" 
-                  className="w-full bg-transparent border-b border-white/10 py-5 pl-12 outline-none focus:border-white transition-all text-white text-xl placeholder:text-slate-800" 
+                  placeholder="name@example.com" 
+                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all text-white text-sm placeholder:text-slate-700" 
                 />
               </div>
             </div>
 
-            <div className="space-y-4">
-              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Security Protocol</label>
-              <div className="relative">
-                <HiOutlineLockClosed className="absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 text-slate-600" />
+            <div className="space-y-2">
+              <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Password</label>
+              <div className="relative group">
+                <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
                 <input 
                   type="password" 
                   value={password} 
                   onChange={e => setPassword(e.target.value)} 
                   placeholder="••••••••" 
-                  className="w-full bg-transparent border-b border-white/10 py-5 pl-12 outline-none focus:border-white transition-all text-white text-xl placeholder:text-slate-800" 
+                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all text-white text-sm placeholder:text-slate-700" 
                 />
               </div>
             </div>
 
-            <button type="submit" disabled={loading} className="w-full h-20 rounded-[24px] bg-white text-black text-xl font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_20px_50px_-10px_rgba(255,255,255,0.2)]">
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className="w-full h-14 mt-4 rounded-2xl bg-white text-black text-sm font-bold hover:bg-slate-100 hover:shadow-[0_10px_30px_-5px_rgba(255,255,255,0.2)] active:scale-[0.98] transition-all duration-300 disabled:opacity-70"
+            >
               {loading ? (
-                <div className="w-8 h-8 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto" />
+                <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto" />
               ) : (
-                'INITIATE SESSION'
+                'Sign In'
               )}
             </button>
           </form>
 
-          <div className="mt-16 text-center pt-10 border-t border-white/5">
-            <p className="text-slate-500 text-lg font-medium">
-              New researcher?{' '}
-              <Link to="/register" className="text-white hover:text-indigo-400 transition-colors underline underline-offset-[12px] decoration-white/20 hover:decoration-indigo-400/50">
-                Create Profile
+          <div className="mt-8 text-center pt-6 border-t border-white/5">
+            <p className="text-slate-500 text-sm font-medium">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-white hover:text-indigo-400 transition-colors font-bold">
+                Create Account
               </Link>
             </p>
           </div>
@@ -109,3 +112,4 @@ export default function Login() {
     </div>
   )
 }
+
