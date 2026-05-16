@@ -15,30 +15,30 @@ export default function Landing() {
   const { user } = useAuth()
 
   return (
-    <div className="min-h-screen bg-[#030408] text-white selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-[#030408] text-white selection:bg-indigo-500/30 flex flex-col items-center">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-indigo-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-indigo-500/5 rounded-full blur-[160px]" />
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-50 flex items-center justify-between px-8 md:px-16 py-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
-            <HiOutlineAcademicCap className="w-6 h-6 text-black" />
+      <nav className="relative z-50 flex items-center justify-between w-full max-w-7xl px-8 md:px-16 py-10">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+            <HiOutlineAcademicCap className="w-7 h-7 text-black" />
           </div>
-          <span className="text-xl font-black tracking-tighter uppercase italic">REDORA</span>
+          <span className="text-2xl font-black tracking-tighter uppercase italic">REDORA</span>
         </div>
         
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           {user ? (
-            <Link to="/dashboard" className="px-6 py-2.5 rounded-xl bg-white text-black text-sm font-bold hover:bg-slate-200 transition-all">
+            <Link to="/dashboard" className="px-10 py-4 rounded-2xl bg-white text-black text-sm font-extrabold hover:bg-slate-200 transition-all shadow-xl">
               Dashboard
             </Link>
           ) : (
             <>
               <Link to="/login" className="text-sm font-bold text-slate-400 hover:text-white transition-colors">Sign In</Link>
-              <Link to="/register" className="px-6 py-2.5 rounded-xl bg-white text-black text-sm font-bold hover:bg-slate-200 transition-all">
+              <Link to="/register" className="px-10 py-4 rounded-2xl bg-white text-black text-sm font-extrabold hover:bg-slate-200 transition-all shadow-xl">
                 Get Started
               </Link>
             </>
@@ -47,62 +47,63 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-8 md:px-16 pt-20 pb-32 max-w-7xl mx-auto">
-        <div className="text-center space-y-8">
-          <h1 className="text-6xl md:text-8xl font-black leading-tight tracking-tighter">
+      <section className="relative z-10 w-full max-w-7xl px-8 md:px-16 pt-24 pb-32 flex flex-col items-center text-center">
+        <div className="space-y-10 max-w-4xl">
+          <h1 className="text-6xl md:text-[110px] font-black leading-[0.85] tracking-tighter">
             THE FUTURE <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 italic">OF STUDYING.</span>
           </h1>
           
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
             Redora transforms dense academic PDFs into high-fidelity summaries and adaptive quizzes. Learn faster with AI intelligence.
           </p>
 
-          <div className="flex justify-center pt-4">
-            <Link to="/register" className="group flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-black text-lg font-black hover:scale-105 transition-all shadow-[0_20px_40px_rgba(255,255,255,0.1)]">
+          <div className="flex justify-center pt-6">
+            <Link to="/register" className="group flex items-center gap-4 px-12 py-6 rounded-[24px] bg-white text-black text-xl font-black hover:scale-105 transition-all shadow-[0_25px_50px_-12px_rgba(255,255,255,0.25)]">
               START NOW
-              <HiChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <HiChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
 
         {/* Big visual card (Hero Image/Preview) */}
-        <div className="mt-24 relative max-w-5xl mx-auto group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 rounded-[32px] blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
-          <div className="relative rounded-[28px] border border-white/10 bg-white/[0.02] backdrop-blur-xl aspect-video overflow-hidden shadow-2xl flex items-center justify-center">
-            <div className="text-slate-700 font-black text-4xl uppercase tracking-[0.2em] italic opacity-20 select-none">
+        <div className="mt-28 relative w-full max-w-5xl group">
+          <div className="absolute -inset-2 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition-opacity" />
+          <div className="relative rounded-[32px] border border-white/10 bg-white/[0.02] backdrop-blur-3xl aspect-video overflow-hidden shadow-2xl flex items-center justify-center">
+            <div className="text-slate-700 font-black text-5xl uppercase tracking-[0.3em] italic opacity-10 select-none">
               Redora Intelligence
             </div>
           </div>
         </div>
       </section>
 
-      {/* Feature Cards Section - Directly below Hero */}
-      <section className="relative z-10 px-8 md:px-16 py-32 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Feature Cards Section */}
+      <section className="relative z-10 w-full max-w-7xl px-8 md:px-16 py-40">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all group">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
-                <Icon className="w-6 h-6 text-indigo-400 group-hover:text-black transition-colors" />
+            <div key={title} className="p-10 rounded-[32px] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all group">
+              <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-8 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
+                <Icon className="w-7 h-7 text-indigo-400 group-hover:text-black transition-colors" />
               </div>
-              <h3 className="text-xl font-bold mb-3 tracking-tight">{title}</h3>
-              <p className="text-slate-500 leading-relaxed text-sm">{desc}</p>
+              <h3 className="text-2xl font-bold mb-4 tracking-tight">{title}</h3>
+              <p className="text-slate-500 leading-relaxed text-base">{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 px-8 md:px-16 py-16 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 opacity-50">
-          <div className="flex items-center gap-3">
-            <HiOutlineAcademicCap className="w-6 h-6" />
-            <span className="text-lg font-black uppercase italic tracking-tighter">REDORA</span>
+      <footer className="relative z-10 w-full max-w-7xl px-8 md:px-16 py-20 border-t border-white/5">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-10 opacity-30">
+          <div className="flex items-center gap-4">
+            <HiOutlineAcademicCap className="w-8 h-8" />
+            <span className="text-2xl font-black uppercase italic tracking-tighter">REDORA</span>
           </div>
-          <p className="text-xs font-medium uppercase tracking-widest">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em]">© 2026 REDORA. ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
     </div>
   )
 }
+
 
