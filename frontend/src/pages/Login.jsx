@@ -60,28 +60,28 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
-              <div className="relative group">
-                <HiOutlineMail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
+              <div className="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl px-5 group focus-within:border-indigo-500/50 focus-within:bg-white/[0.05] transition-all">
+                <HiOutlineMail className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors shrink-0" />
                 <input 
                   type="email" 
                   value={email} 
                   onChange={e => setEmail(e.target.value)} 
                   placeholder="name@example.com" 
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all text-white text-sm placeholder:text-slate-700" 
+                  className="w-full bg-transparent py-4 outline-none text-white text-sm placeholder:text-slate-700" 
                 />
               </div>
             </div>
 
             <div className="space-y-2">
               <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider ml-1">Password</label>
-              <div className="relative group">
-                <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
+              <div className="flex items-center gap-4 bg-white/[0.03] border border-white/10 rounded-2xl px-5 group focus-within:border-indigo-500/50 focus-within:bg-white/[0.05] transition-all">
+                <HiOutlineLockClosed className="w-5 h-5 text-slate-600 group-focus-within:text-indigo-400 transition-colors shrink-0" />
                 <input 
                   type="password" 
                   value={password} 
                   onChange={e => setPassword(e.target.value)} 
                   placeholder="••••••••" 
-                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-indigo-500/50 focus:bg-white/[0.05] transition-all text-white text-sm placeholder:text-slate-700" 
+                  className="w-full bg-transparent py-4 outline-none text-white text-sm placeholder:text-slate-700" 
                 />
               </div>
             </div>

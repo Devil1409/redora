@@ -54,9 +54,9 @@ export default function Landing() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 italic">OF STUDYING.</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
-            AI Smart Learning Assistant with
-            Summarization and Quiz Generation.Learn faster with AI intelligence.
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
+            AI Smart Learning Assistant with Summarization and Quiz Generation.<br />
+            Learn faster with AI intelligence.
           </p>
 
           <div className="flex justify-center pt-6">
