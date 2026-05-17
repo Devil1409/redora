@@ -44,14 +44,14 @@ export default function Summary() {
     setStreamedSummary('')
     
     const token = localStorage.getItem('redora_token')
-    const url = `/api/documents/${id}/stream-summarize?style=${style}&token=${token}`
+    const baseUrl = import.meta.env.VITE_API_URL || '/api'
     
     // Using native EventSource for SSE
     // Note: EventSource doesn't support headers, so we pass token in URL or use a custom polyfill/fetch
     // Here we'll use a fetch-based stream for better header support
     const fetchStream = async () => {
       try {
-        const response = await fetch(`/api/documents/${id}/stream-summarize?style=${style}`, {
+        const response = await fetch(`${baseUrl}/documents/${id}/stream-summarize?style=${style}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
         
