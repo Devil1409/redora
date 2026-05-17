@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, get_jwt_identity
 from bson import ObjectId
 from datetime import datetime, timezone
+import uuid
 
 from models.user import create_user_document, verify_password
 from middleware.auth import auth_required
@@ -83,6 +84,31 @@ def login():
             "email": user["email"],
         },
     }), 200
+
+@auth_bp.route("/guest", methods=["POST"])
+def guest_login():
+    """Create a temporary guest session."""
+    guest_id = f"guest_{uuid.uuid4().hex[:8]}"
+    
+    try:
+        user_doc = create_user_document(f"Guest-{guest_id[-4:]}", f"{guest_id}@guest.redora.app", guest_id)
+        user_doc["is_guest"] = True
+        result = mongo.db.users.insert_one(user_doc)
+        token = create_access_token(identity=str(result.inserted_id))
+        
+        return jsonify({
+            "success": True,
+            "message": "Guest session created",
+            "token": token,
+            "user": {
+                "id": str(result.inserted_id),
+                "username": user_doc["username"],
+                "email": user_doc["email"],
+                "is_guest": True
+            },
+        }), 201
+    except Exception as e:
+        return jsonify({"success": False, "message": "Server error", "error": str(e)}), 500
 
 
 @auth_bp.route("/profile", methods=["GET"])

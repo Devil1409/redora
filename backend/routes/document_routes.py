@@ -57,6 +57,74 @@ def upload_document():
         }
     }), 201
 
+@doc_bp.route("/upload_multiple", methods=["POST"])
+@auth_required
+def upload_multiple_documents():
+    user_id = get_jwt_identity()
+
+    if "files" not in request.files:
+        return jsonify({"success": False, "message": "No files provided"}), 400
+
+    files = request.files.getlist("files")
+    if not files:
+        return jsonify({"success": False, "message": "No files selected"}), 400
+
+    os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+
+    extracted_docs = []
+    
+    # Extract text for all files
+    for file in files:
+        filename = secure_filename(f"{user_id}_{int(time.time())}_{file.filename}")
+        filepath = os.path.join(Config.UPLOAD_FOLDER, filename)
+        file.save(filepath)
+
+        extraction = extract_text_from_pdf(filepath)
+        if extraction["success"]:
+            extracted_docs.append({
+                "filename": filename,
+                "original_name": file.filename,
+                "filepath": filepath,
+                "text": extraction["text"],
+                "page_count": extraction["page_count"],
+                "word_count": extraction["word_count"]
+            })
+
+    if not extracted_docs:
+        return jsonify({"success": False, "message": "Failed to extract text from PDFs"}), 500
+
+    # If the user uploads multiple files together, they want them summarized together.
+    # We will merge them all into a single 'group'
+    groups = [extracted_docs]
+
+    final_documents = []
+    for group in groups:
+        # Merge texts and names
+        documents_list = [{"title": d["original_name"], "text": d["text"]} for d in group]
+        merged_original_name = " + ".join([d["original_name"] for d in group])
+        total_pages = sum([d["page_count"] for d in group])
+        total_words = sum([d["word_count"] for d in group])
+
+        # We use the first file's saved filename as base
+        db_doc = create_document_record(user_id, group[0]["filename"], merged_original_name, total_pages)
+        db_doc["sections"] = documents_list
+        db_doc["extracted_text"] = "\n\n".join([d["text"] for d in group])
+        db_doc["metadata"]["word_count"] = total_words
+        db_doc["status"] = "processing"
+        
+        result = mongo.db.documents.insert_one(db_doc)
+        final_documents.append({
+            "id": str(result.inserted_id),
+            "filename": merged_original_name,
+            "page_count": total_pages,
+            "word_count": total_words
+        })
+
+    return jsonify({
+        "success": True,
+        "documents": final_documents
+    }), 201
+
 @doc_bp.route("/<doc_id>/stream-summarize", methods=["GET"])
 @auth_required
 def stream_summarize(doc_id):
@@ -72,8 +140,8 @@ def stream_summarize(doc_id):
 
     @stream_with_context
     def generate():
-        # Chunk text for quality (approx 10-15 pages per chunk)
-        chunks = chunk_text(text, max_chars=12000) 
+        sections = doc.get("sections")
+        text = doc.get("extracted_text", "")
         
         # Step 1: Extract topics (using first 10,000 chars)
         topics = extract_key_topics(text[:10000])
@@ -82,9 +150,25 @@ def stream_summarize(doc_id):
 
         # Step 2: Sectional Streaming
         full_summary = ""
-        for part in stream_summarize_chunks(chunks, style):
-            full_summary += part
-            yield f"data: {json.dumps({'chunk': part})}\n\n"
+        
+        if sections and len(sections) > 1:
+            for sec in sections:
+                heading = f"### {sec['title']}\n\n"
+                yield f"data: {json.dumps({'chunk': heading})}\n\n"
+                full_summary += heading
+                
+                chunks = chunk_text(sec["text"], max_chars=12000)
+                for part in stream_summarize_chunks(chunks, style, include_heading=False):
+                    full_summary += part
+                    yield f"data: {json.dumps({'chunk': part})}\n\n"
+                
+                yield "data: " + json.dumps({'chunk': '\n\n'}) + "\n\n"
+                full_summary += "\n\n"
+        else:
+            chunks = chunk_text(text, max_chars=12000) 
+            for part in stream_summarize_chunks(chunks, style, include_heading=True):
+                full_summary += part
+                yield f"data: {json.dumps({'chunk': part})}\n\n"
         
         # Step 3: Finalize
         mongo.db.documents.update_one(

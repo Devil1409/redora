@@ -111,9 +111,9 @@ export default function History() {
 
               {/* Actions */}
               <div className="flex-shrink-0">
-                {item.type === 'document' && item.status === 'completed' && (
+                {item.type === 'document' && (
                   <Link to={`/summary/${item.id}`} className="px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-all">
-                    View Summary
+                    {item.status === 'completed' ? 'View Summary' : 'Generate Summary'}
                   </Link>
                 )}
                 {item.type === 'quiz' && item.status === 'completed' && (

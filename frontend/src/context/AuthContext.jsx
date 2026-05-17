@@ -58,6 +58,20 @@ export function AuthProvider({ children }) {
     return res.data
   }
 
+  const guestLogin = async () => {
+    localStorage.removeItem('redora_token')
+    localStorage.removeItem('redora_user')
+    
+    const res = await API.post('/auth/guest')
+    if (res.data.success) {
+      localStorage.setItem('redora_token', res.data.token)
+      localStorage.setItem('redora_user', JSON.stringify(res.data.user))
+      API.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+      setUser(res.data.user)
+    }
+    return res.data
+  }
+
   const logout = () => {
     localStorage.removeItem('redora_token')
     localStorage.removeItem('redora_user')
@@ -66,7 +80,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, guestLogin, logout }}>
       {children}
     </AuthContext.Provider>
   )

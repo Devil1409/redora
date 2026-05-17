@@ -1,4 +1,5 @@
 import os
+import tempfile
 from dotenv import load_dotenv
 from datetime import timedelta
 
@@ -34,7 +35,7 @@ class Config:
 
     # Upload
     MAX_CONTENT_LENGTH = int(os.getenv("MAX_CONTENT_LENGTH", 104857600)) # 100MB for 100pgs
-    UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")
+    UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", os.path.join(tempfile.gettempdir(), "redora_uploads"))
 
     # AI Model settings
     GROQ_MODEL = "llama-3.1-8b-instant"

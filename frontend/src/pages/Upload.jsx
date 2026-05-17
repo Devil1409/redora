@@ -7,47 +7,50 @@ import { PageHeader, LoadingSpinner } from '../components/UI'
 import { HiOutlineCloudUpload, HiOutlineDocumentText, HiOutlineCheck } from 'react-icons/hi'
 
 export default function Upload() {
-  const [file, setFile] = useState(null)
+  const [files, setFiles] = useState([])
   const [uploading, setUploading] = useState(false)
   const [progress, setProgress] = useState('')
   const navigate = useNavigate()
 
   const onDrop = useCallback((accepted) => {
-    if (accepted.length > 0) {
-      const f = accepted[0]
-      if (f.type !== 'application/pdf') {
-        toast.error('Only PDF files are allowed')
-        return
-      }
-      setFile(f)
+    const valid = accepted.filter(f => f.type === 'application/pdf')
+    if (valid.length !== accepted.length) {
+      toast.error('Only PDF files are allowed')
+    }
+    if (valid.length > 0) {
+      setFiles(prev => [...prev, ...valid].slice(0, 5))
     }
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'application/pdf': ['.pdf'] },
-    maxFiles: 1,
+    maxFiles: 5,
     maxSize: 50 * 1024 * 1024,
   })
 
   const handleUpload = async () => {
-    if (!file) return toast.error('Please select a PDF file')
+    if (files.length === 0) return toast.error('Please select at least one PDF file')
     setUploading(true)
-    setProgress('Uploading PDF...')
+    setProgress('Uploading PDFs...')
 
     try {
       const formData = new FormData()
-      formData.append('file', file)
+      files.forEach(file => formData.append('files', file))
 
-      const res = await API.post('/documents/upload', formData, {
+      const res = await API.post('/documents/upload_multiple', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 60000,
+        timeout: 120000,
       })
 
       if (res.data.success) {
-        const docId = res.data.document.id
-        toast.success(`Uploaded! ${res.data.document.page_count} pages extracted`)
-        navigate(`/summary/${docId}`)
+        if (res.data.documents.length === 1) {
+          toast.success(`Processed & Grouped!`)
+          navigate(`/summary/${res.data.documents[0].id}`)
+        } else {
+          toast.success(`Processed! Documents were separated.`)
+          navigate(`/history`)
+        }
       } else {
         toast.error(res.data.message || 'Upload failed')
       }
@@ -69,18 +72,20 @@ export default function Upload() {
           {...getRootProps()}
           className={`glass-card p-12 text-center cursor-pointer transition-all duration-300 ${
             isDragActive ? 'border-indigo-500 bg-indigo-500/5' : ''
-          } ${file ? 'border-emerald-500/30 bg-emerald-500/5' : ''}`}
+          } ${files.length > 0 ? 'border-emerald-500/30 bg-emerald-500/5' : ''}`}
         >
           <input {...getInputProps()} />
 
-          {file ? (
+          {files.length > 0 ? (
             <div className="space-y-3">
               <div className="w-16 h-16 mx-auto rounded-2xl bg-emerald-500/15 flex items-center justify-center">
                 <HiOutlineCheck className="w-8 h-8 text-emerald-400" />
               </div>
-              <p className="text-lg font-semibold text-white">{file.name}</p>
-              <p className="text-sm text-gray-400">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
-              <p className="text-xs text-gray-500">Click or drag to replace</p>
+              <p className="text-lg font-semibold text-white">{files.length} File(s) Selected</p>
+              {files.map((f, i) => (
+                <p key={i} className="text-sm text-gray-400">{f.name} ({(f.size / (1024 * 1024)).toFixed(2)} MB)</p>
+              ))}
+              <p className="text-xs text-gray-500 mt-4">Click or drag to add more / replace</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -88,9 +93,9 @@ export default function Upload() {
                 <HiOutlineCloudUpload className="w-8 h-8 text-indigo-400" />
               </div>
               <p className="text-lg font-semibold text-white">
-                {isDragActive ? 'Drop your PDF here' : 'Drag & drop your PDF'}
+                {isDragActive ? 'Drop your PDFs here' : 'Drag & drop your PDFs'}
               </p>
-              <p className="text-sm text-gray-400">or click to browse • Max 50 MB</p>
+              <p className="text-sm text-gray-400">or click to browse • Max 50 MB total • Similar files will be combined</p>
             </div>
           )}
         </div>
@@ -104,7 +109,7 @@ export default function Upload() {
             </div>
           </div>
         ) : (
-          <button onClick={handleUpload} disabled={!file} className="btn-primary w-full mt-6 justify-center py-3.5 text-base">
+          <button onClick={handleUpload} disabled={files.length === 0} className="btn-primary w-full mt-6 justify-center py-3.5 text-base">
             <HiOutlineDocumentText className="w-5 h-5" />
             Upload & Process
           </button>

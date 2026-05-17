@@ -15,14 +15,14 @@ def _get_groq_client():
     key = keys[int(time.time()) % len(keys)]
     return Groq(api_key=key)
 
-def stream_summarize_chunks(chunks, style="detailed"):
+def stream_summarize_chunks(chunks, style="detailed", include_heading=True):
     """
     Processes multiple text chunks (sections) and yields summaries for each.
     Optimized for 100+ page NCERT-style documents.
     """
     client = _get_groq_client()
     
-    system_prompt = "You are an elite academic assistant. Summarize the provided NCERT/textbook section with high precision, focusing on definitions, key concepts, and important diagrams/processes. Use markdown."
+    system_prompt = "You are an elite academic assistant. Summarize the provided text with high precision, focusing on definitions, key concepts, and important details. Use markdown."
 
     for i, chunk in enumerate(chunks):
         # Rotate client per chunk
@@ -35,8 +35,11 @@ def stream_summarize_chunks(chunks, style="detailed"):
         
         for attempt in range(max_retries):
             try:
-                if attempt == 0:
-                    yield f"\n\n### Section {i+1} Summary\n\n"
+                if attempt == 0 and include_heading:
+                    if len(chunks) > 1:
+                        yield f"\n\n### Section {i+1}\n\n"
+                    else:
+                        yield f"\n\n### Summary\n\n"
                 
                 completion = client.chat.completions.create(
                     model=Config.GROQ_SUMMARY_MODEL,

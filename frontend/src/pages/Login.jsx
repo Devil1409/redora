@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const { user, login } = useAuth()
+  const { user, login, guestLogin } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -96,6 +96,25 @@ export default function Login() {
               ) : (
                 'Sign In'
               )}
+            </button>
+
+            <button
+              type="button"
+              onClick={async () => {
+                setLoading(true)
+                try {
+                  const res = await guestLogin()
+                  if (res.success) {
+                    toast.success('Logged in as Guest')
+                    navigate('/dashboard')
+                  }
+                } catch (err) { toast.error('Guest login failed') }
+                finally { setLoading(false) }
+              }}
+              disabled={loading}
+              className="w-full h-14 mt-4 rounded-2xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-white/10 active:scale-[0.98] transition-all duration-300 disabled:opacity-70"
+            >
+              Continue as Guest
             </button>
           </form>
 

@@ -125,9 +125,9 @@ export default function Summary() {
       />
 
       <div className="grid lg:grid-cols-3 gap-16">
-        <div className="lg:col-span-2">
-          <div className="glass-card p-12 min-h-[600px] relative">
-            <div className="flex items-center justify-between mb-12">
+        <div className="lg:col-span-2 space-y-6">
+          <div className="glass-card p-8 relative">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center shadow-xl">
                   <HiOutlineLightningBolt className={`w-6 h-6 ${streaming ? 'text-amber-500 animate-pulse' : 'text-black'}`} />
@@ -145,19 +145,23 @@ export default function Summary() {
                 ))}
               </div>
             </div>
-
-            <div className="markdown-content max-w-none">
-              {streamedSummary ? (
-                <ReactMarkdown>{streamedSummary}</ReactMarkdown>
-              ) : (
-                <div className="flex flex-col items-center justify-center py-32 text-slate-600">
-                  <div className="w-16 h-16 border-4 border-white/5 border-t-white rounded-full animate-spin mb-8" />
-                  <p className="text-lg font-medium">Initializing Hybrid Intelligence Pipeline...</p>
-                </div>
-              )}
-              {streaming && <span className="inline-block w-3 h-6 bg-white ml-2 animate-pulse align-middle" />}
-            </div>
           </div>
+
+          {!streamedSummary && (
+            <div className="glass-card p-12 min-h-[400px] flex flex-col items-center justify-center text-slate-600">
+              <div className="w-16 h-16 border-4 border-white/5 border-t-white rounded-full animate-spin mb-8" />
+              <p className="text-lg font-medium">Initializing Hybrid Intelligence Pipeline...</p>
+            </div>
+          )}
+
+          {streamedSummary && streamedSummary.split(/(?=\n###? )/).map((section, idx, arr) => (
+            <div key={idx} className="glass-card p-8 markdown-content max-w-none">
+              <ReactMarkdown>{section}</ReactMarkdown>
+              {streaming && idx === arr.length - 1 && (
+                <span className="inline-block w-3 h-6 bg-white ml-2 animate-pulse align-middle" />
+              )}
+            </div>
+          ))}
         </div>
 
         <div className="space-y-12">
